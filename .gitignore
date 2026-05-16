@@ -1,0 +1,40 @@
+# --- Secrets / env -----------------------------------------------------------
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# --- Python venvs (catch .venv, .venv-1, venv, env, etc.) --------------------
+.venv*/
+venv/
+env/
+
+# --- Python caches -----------------------------------------------------------
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+
+# --- Local DB / data ---------------------------------------------------------
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# --- Editor / OS -------------------------------------------------------------
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# --- JS / build artifacts ----------------------------------------------------
+node_modules/
+.next/
+dist/
+build/

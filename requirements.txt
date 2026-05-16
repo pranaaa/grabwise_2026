@@ -1,0 +1,29 @@
+# Loose pins so the resolver can pick wheels for whatever Python you're on
+# (Python 3.13 strongly recommended; 3.14 also works with these ranges).
+
+# --- API & app ---
+fastapi>=0.115,<1
+uvicorn[standard]>=0.32,<1
+sse-starlette>=2.1,<3
+pydantic>=2.10,<3
+pydantic-settings>=2.7,<3
+python-dotenv>=1.0,<2
+
+# --- Auth ---
+bcrypt>=4.0,<6
+itsdangerous>=2.2,<3
+email-validator>=2.2,<3   # required for pydantic EmailStr (used in /api/auth/register)
+
+# --- Data layer (SQLite for hackathon dev; swap to Postgres later) ---
+SQLAlchemy>=2.0.36,<2.1
+Faker>=30,<40
+
+# --- LLM + Orchestration ---
+boto3>=1.35,<2
+langchain-core>=0.3.20,<0.4
+langchain-aws>=0.2.10,<0.3
+langchain-anthropic>=0.3.0,<0.4   # fallback when AWS Bedrock creds are not present
+langgraph>=0.2.50,<0.3
+
+# --- Dev / CLI ---
+rich>=13.9,<15                  # nicer CLI smoke-test output
