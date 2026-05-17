@@ -19,7 +19,7 @@ from langgraph.graph import StateGraph, END
 
 from backend.llm.bedrock import get_haiku
 from backend.state import AgentState
-from backend.agents import driver_success, customer_convenience, merchant_growth, fraud_risk
+from backend.agents import driver_success, customer_convenience, merchant_growth, fraud_risk, planner
 from backend.observability.tracker import track_agent_call
 
 
@@ -29,6 +29,7 @@ AgentName = Literal[
     "customer_convenience",
     "merchant_growth",
     "fraud_risk",
+    "planner",
     "FINISH",
 ]
 
@@ -48,6 +49,11 @@ Available specialist agents:
 - customer_convenience: meal/merchant Smart Discovery + Safe Late-Night Matching
 - merchant_growth: pricing/discount advice, demand forecasting
 - fraud_risk: order risk scoring, driver trust scoring, customer anomaly detection
+- planner: multi-dimensional analysis. Route here ONLY for cross-cutting questions
+  that span multiple personas, cities, time windows, or segments — e.g.
+  "compare X across Y by Z", "strategy memo on...", "deep dive into...".
+  The planner spawns ephemeral specialists for each sub-task. Do NOT route here
+  for simple single-domain questions; those go to one specialist directly.
 - FINISH: the user's request has been fully answered; end the conversation
 
 ==== ROUTING RULES ====
@@ -141,7 +147,16 @@ ROLE_FALLBACK_AGENT = {
 }
 
 # Keyword → agent buckets for admin intent inference.
+# The Planner bucket goes FIRST so multi-dimensional / analytical queries
+# pre-empt the simpler single-domain matches that follow.
 _AGENT_KEYWORDS: list[tuple[str, list[str]]] = [
+    ("planner", [
+        " compare ", "compare ", " vs ", " vs.", " versus ",
+        "across cities", "across all", "across segments",
+        "strategy memo", "give me a memo", "deep dive",
+        "multi-dimensional", "report on", "synthesize",
+        "cross-cut", "cross cut", "cross-persona",
+    ]),
     ("merchant_growth", [
         "forecast", "demand", "pricing", "discount", "bundle", "menu",
         "competitor", "sales", "revenue", "merchant", "restaurant",
@@ -213,7 +228,7 @@ def supervisor_node(state: AgentState) -> dict:
     _duration_ms = int((time.time() - _t0) * 1000)
 
     # --- Validate ----
-    _allowed = {"driver_success", "customer_convenience", "merchant_growth", "fraud_risk", "FINISH"}
+    _allowed = {"driver_success", "customer_convenience", "merchant_growth", "fraud_risk", "planner", "FINISH"}
     _reasons: list[str] = []
     next_agent: str
 
@@ -254,6 +269,7 @@ _KNOWN_AGENTS = {
     "customer_convenience",
     "merchant_growth",
     "fraud_risk",
+    "planner",
 }
 
 
@@ -272,6 +288,7 @@ def build_supervisor_graph():
     g.add_node("customer_convenience", customer_convenience.node)
     g.add_node("merchant_growth", merchant_growth.node)
     g.add_node("fraud_risk", fraud_risk.node)
+    g.add_node("planner", planner.node)
 
     g.set_entry_point("supervisor")
     g.add_conditional_edges(
@@ -282,11 +299,12 @@ def build_supervisor_graph():
             "customer_convenience": "customer_convenience",
             "merchant_growth": "merchant_growth",
             "fraud_risk": "fraud_risk",
+            "planner": "planner",
             END: END,
         },
     )
     # Every specialist returns to the supervisor, which will pick FINISH next.
-    for agent in ["driver_success", "customer_convenience", "merchant_growth", "fraud_risk"]:
+    for agent in ["driver_success", "customer_convenience", "merchant_growth", "fraud_risk", "planner"]:
         g.add_edge(agent, "supervisor")
 
     return g.compile()

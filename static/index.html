@@ -1800,58 +1800,21 @@
         <div id="driver-profile-body" class="px-6 py-5"></div>
       </section>
 
-      <!-- ============== NEW: Active Status + Today's Plan ============== -->
-      <section class="grid grid-cols-1 lg:grid-cols-3 gap-6 card-anim" style="--i: 1;">
-
-        <!-- Status card (1 col on lg) — petite -->
-        <div class="lg:col-span-1 bg-white rounded-3xl border border-ink-100 shadow-soft overflow-hidden">
-          <div class="persona-stripe"></div>
-          <div class="p-5">
-            <!-- Top row: tiny status label + time-since meta -->
-            <div class="flex items-center justify-between mb-3">
-              <div class="flex items-center gap-2">
-                <span id="driver-status-dot" class="w-1.5 h-1.5 rounded-full bg-ink-300"></span>
-                <span class="text-[10px] font-mono uppercase tracking-[0.18em] text-ink-500">Status</span>
-              </div>
-              <span id="driver-status-meta" class="text-[10px] font-mono text-ink-400"></span>
-            </div>
-
-            <!-- Main label, smaller -->
-            <h2 id="driver-status-label" class="font-display text-xl font-extrabold text-ink-900 leading-tight" style="letter-spacing: -0.025em;">Loading…</h2>
-            <p id="driver-status-sub" class="text-[11px] text-ink-500 mt-1 leading-snug">—</p>
-
-            <!-- Toggle button, more compact -->
-            <button id="driver-toggle-btn" class="mt-4 w-full font-semibold px-4 py-2.5 rounded-full text-sm transition flex items-center justify-center gap-2 disabled:opacity-50" disabled
-                style="background: var(--grab); color: white; box-shadow: 0 2px 8px -2px var(--grab-glow);">
-              <span id="driver-toggle-text">Go online</span>
-              <span class="send-btn-arrow">→</span>
-            </button>
-
-            <!-- Footer: inline home zone (left) + vehicle (right) -->
-            <div class="mt-4 pt-3 border-t border-ink-50 flex items-center justify-between gap-2 text-[11px]">
-              <div class="flex items-center gap-1.5 min-w-0">
-                <span class="text-ink-400">🏠</span>
-                <span id="driver-home-zone" class="text-ink-700 font-medium truncate">—</span>
-              </div>
-              <span id="driver-vehicle" class="text-ink-500">—</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Today's Plan card (2 cols on lg) -->
-        <div class="lg:col-span-2 bg-white rounded-3xl border border-ink-100 shadow-soft overflow-hidden flex flex-col">
+      <!-- ============== Today's Plan (full-width) ============== -->
+      <section class="card-anim" style="--i: 1;">
+        <div class="bg-white rounded-3xl border border-ink-100 shadow-soft overflow-hidden flex flex-col">
           <div class="persona-stripe"></div>
           <div class="px-6 py-4 border-b border-ink-100 flex items-start justify-between gap-3 flex-wrap">
             <div>
-              <h2 id="driver-plan-title" class="font-display text-base font-extrabold text-ink-900 tracking-tight">Today's plan</h2>
-              <p id="driver-plan-caption" class="text-[11px] text-ink-500 mt-0.5">Personalized route based on demand and your preferences</p>
+              <h2 id="driver-plan-title" class="font-display text-base font-extrabold text-ink-900 tracking-tight">Daily planner</h2>
+              <p id="driver-plan-caption" class="text-[11px] text-ink-500 mt-0.5">Personalised route based on demand and your preferences.</p>
             </div>
             <div class="flex items-center gap-2">
               <button id="driver-plan-refresh" class="text-[11px] font-semibold text-grab-700 bg-grab-50 hover:bg-grab-100 border border-grab-100 rounded-lg px-2.5 py-1 transition">↻ Refresh</button>
               <button id="driver-plan-ask" class="text-[11px] font-semibold text-grab-700 bg-grab-50 hover:bg-grab-100 border border-grab-100 rounded-lg px-2.5 py-1 transition">💬 Ask about this</button>
             </div>
           </div>
-          <div id="driver-plan-body" class="px-6 py-5 flex-1">
+          <div id="driver-plan-body" class="px-6 py-5">
             <div class="text-sm text-ink-500">Loading plan…</div>
           </div>
         </div>
@@ -1879,25 +1842,24 @@
         <div id="driver-earnings-body" class="p-6"></div>
       </section>
 
-      <!-- ============== NEW: Weekly schedule + Preferences ============== -->
-      <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 card-anim" style="--i: 4;">
-
-        <!-- Weekly schedule -->
+      <!-- ============== Preferences (editable) ============== -->
+      <section class="card-anim" style="--i: 4;">
         <div class="bg-white rounded-3xl border border-ink-100 shadow-soft overflow-hidden">
-          <div class="px-6 py-4 border-b border-ink-100">
-            <h3 class="font-display text-base font-extrabold text-ink-900 tracking-tight">Weekly schedule</h3>
-            <p class="text-[11px] text-ink-500 mt-0.5">Your active hours each day — feeds the planner</p>
+          <div class="px-6 py-4 border-b border-ink-100 flex items-start justify-between gap-3 flex-wrap">
+            <div>
+              <h3 class="font-display text-base font-extrabold text-ink-900 tracking-tight">Preferences</h3>
+              <p class="text-[11px] text-ink-500 mt-0.5">Working hours, preferred zones, and an optional break. Feeds the planner.</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <span id="driver-prefs-status" class="text-[11px] text-ink-500" aria-live="polite"></span>
+              <button id="driver-prefs-save" class="text-[12px] font-semibold text-white bg-grab-600 hover:bg-grab-700 disabled:opacity-50 border border-grab-700 rounded-lg px-3 py-1.5 transition">
+                Save preferences
+              </button>
+            </div>
           </div>
-          <div id="driver-schedule-body" class="px-6 py-5"></div>
-        </div>
-
-        <!-- Preferences -->
-        <div class="bg-white rounded-3xl border border-ink-100 shadow-soft overflow-hidden">
-          <div class="px-6 py-4 border-b border-ink-100">
-            <h3 class="font-display text-base font-extrabold text-ink-900 tracking-tight">Preferences</h3>
-            <p class="text-[11px] text-ink-500 mt-0.5">Zones you prefer · blackout hours · weekly target</p>
+          <div id="driver-prefs-body" class="px-6 py-5">
+            <div class="text-sm text-ink-500">Loading preferences…</div>
           </div>
-          <div id="driver-prefs-body" class="px-6 py-5"></div>
         </div>
       </section>
 
@@ -4001,7 +3963,6 @@
         loadDriverKpis(),
         loadDriverEarnings(),
         loadDriverIncentives(),
-        loadDriverPlannerStatus(),
         loadDriverPlannerPlan(),
         loadDriverPlannerPrefs(),
       ]);
@@ -4361,85 +4322,17 @@
   // =====================================================================
   const DAY_LABELS_FE = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
 
-  let driverPlannerStatusLast = null;
-  let driverPlannerPlanLast   = null;
-
-  // ----- Status + Toggle ------------------------------------------------
-  async function loadDriverPlannerStatus() {
-    try {
-      const r = await fetch('/api/driver/planner/status', { credentials: 'include' });
-      if (!r.ok) throw new Error('status fetch failed');
-      const d = await r.json();
-      driverPlannerStatusLast = d;
-      renderDriverPlannerStatus(d);
-    } catch (err) { console.error('driver/planner/status failed', err); }
-  }
-
-  function renderDriverPlannerStatus(s) {
-    const dot   = document.getElementById('driver-status-dot');
-    const label = document.getElementById('driver-status-label');
-    const sub   = document.getElementById('driver-status-sub');
-    const meta  = document.getElementById('driver-status-meta');
-    const btn   = document.getElementById('driver-toggle-btn');
-    const btnT  = document.getElementById('driver-toggle-text');
-    const homeZ = document.getElementById('driver-home-zone');
-    const vehE  = document.getElementById('driver-vehicle');
-
-    const online = !!s.session?.is_active;
-
-    if (online) {
-      dot.style.background = '#00B14F';
-      dot.classList.add('pulse-glow');
-      label.textContent = "Online";
-      sub.textContent   = 'Taking trips now';
-      const t = s.session.started_at ? new Date(s.session.started_at) : null;
-      meta.textContent = t
-        ? `Since ${t.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}`
-        : '';
-      btnT.textContent = 'Go offline';
-      btn.style.background = '#9F1239';
-      btn.style.boxShadow  = '0 2px 8px -2px rgba(159,18,57,0.30)';
-    } else {
-      dot.style.background = '#9AA0A6';
-      dot.classList.remove('pulse-glow');
-      label.textContent = "Offline";
-      if (s.today_schedule) {
-        const start = String(s.today_schedule.start_hour).padStart(2,'0') + ':00';
-        const end   = String(s.today_schedule.end_hour).padStart(2,'0') + ':00';
-        sub.textContent  = `Scheduled ${start} – ${end}`;
-        meta.textContent = s.today_schedule.day_label;
-      } else {
-        sub.textContent  = 'No hours today';
-        meta.textContent = '';
-      }
-      btnT.textContent = 'Go online';
-      btn.style.background = 'var(--grab)';
-      btn.style.boxShadow  = '0 2px 8px -2px var(--grab-glow)';
-    }
-    btn.disabled = false;
-
-    homeZ.textContent = s.home_zone || '—';
-    vehE.textContent  = s.vehicle_type === 'bike' ? '🛵 Bike' : (s.vehicle_type === 'car' ? '🚗 Car' : '—');
-  }
-
-  async function toggleDriverActive() {
-    const btn = document.getElementById('driver-toggle-btn');
-    const wasOnline = driverPlannerStatusLast?.session?.is_active === true;
-    btn.disabled = true;
-    try {
-      const r = await fetch('/api/driver/planner/toggle', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({ go_active: !wasOnline })
-      });
-      if (!r.ok) throw new Error('toggle failed');
-      await loadDriverPlannerStatus();
-    } catch (err) {
-      console.error('toggle failed', err);
-      btn.disabled = false;
-    }
-  }
+  let driverPlannerPlanLast  = null;
+  // Local working copy of editable prefs — mutated by the form, sent on Save.
+  // break_hours is exposed in the UI; the backend still stores it as the
+  // blackout_hours array (expanded to integers inside the break window).
+  let driverPrefsDraft = {
+    working_hours: { start_hour: 8, end_hour: 18, days: [0,1,2,3,4] },
+    break_hours: { start: null, end: null },   // null = no break
+    preferred_zones: [],
+    all_zones: [],
+    home_zone: null,
+  };
 
   // ----- Today's Plan ---------------------------------------------------
   async function loadDriverPlannerPlan() {
@@ -4457,19 +4350,9 @@
     const title = document.getElementById('driver-plan-title');
     const cap   = document.getElementById('driver-plan-caption');
 
-    // Update title + caption based on whether we're planning today or a future day
-    if (title && cap) {
-      if (p?.available && p.is_today === false && p.day_label) {
-        title.textContent = `Plan for ${p.day_label}`;
-        cap.textContent = "You're off today — here's the route for your next scheduled day.";
-      } else if (p?.available) {
-        title.textContent = "Today's plan";
-        cap.textContent = "Personalized route based on demand and your preferences";
-      } else {
-        title.textContent = "Today's plan";
-        cap.textContent = "Personalized route based on demand and your preferences";
-      }
-    }
+    // Title stays constant. Caption stays constant.
+    if (title) title.textContent = 'Daily planner';
+    if (cap)   cap.textContent   = 'Personalised route based on demand and your preferences.';
 
     if (!p?.available) {
       body.innerHTML = `
@@ -4483,21 +4366,18 @@
     const blocksHtml = (p.blocks || []).map((b, idx) => {
       const start = String(b.start_hour).padStart(2,'0') + ':00';
       const end   = String(b.end_hour).padStart(2,'0') + ':00';
-      const earn  = (b.expected_earnings != null) ? `$${Number(b.expected_earnings).toFixed(0)}` : '—';
-      const isLast = idx === (p.blocks.length - 1);
+      const earnVal = (b.expected_earnings != null) ? `$${Number(b.expected_earnings).toFixed(0)}` : null;
+      const isLast  = idx === (p.blocks.length - 1);
       return `
         <div class="flex items-start gap-3 ${isLast ? '' : 'pb-3 mb-3 border-b border-ink-100'}">
-          <div class="flex-shrink-0 w-12 text-center">
-            <div class="text-[10px] font-mono uppercase tracking-[0.14em] text-ink-500">Stop</div>
-            <div class="font-display text-xl font-extrabold text-grab-700">${idx + 1}</div>
-          </div>
+          <div class="flex-shrink-0 w-8 h-8 rounded-full bg-grab-50 border border-grab-200 text-grab-700 font-bold text-sm flex items-center justify-center">${idx + 1}</div>
           <div class="flex-1 min-w-0">
             <div class="flex items-center justify-between gap-2 flex-wrap">
-              <div class="font-display text-base font-extrabold text-ink-900" style="letter-spacing: -0.02em;">${escapeHtml(b.zone || '—')}</div>
-              <div class="text-xs font-mono text-ink-600">${start} – ${end}</div>
+              <div class="font-display text-base font-extrabold text-ink-900" style="letter-spacing: -0.02em;">${escapeHtml(b.zone || '')}</div>
+              <div class="text-xs font-mono text-ink-600">${start} to ${end}</div>
             </div>
             <div class="text-xs text-ink-500 mt-1 leading-snug">${escapeHtml(b.rationale || '')}</div>
-            ${earn !== '—' ? `<div class="mt-1.5 inline-flex items-center gap-1 text-[11px] font-mono text-grab-700 bg-grab-50 border border-grab-100 px-2 py-0.5 rounded-full">+${earn} expected</div>` : ''}
+            ${earnVal ? `<div class="mt-1.5 inline-flex items-center gap-1 text-[11px] font-mono text-grab-700 bg-grab-50 border border-grab-100 px-2 py-0.5 rounded-full">Estimated earnings: ${earnVal}</div>` : ''}
           </div>
         </div>`;
     }).join('');
@@ -4507,100 +4387,273 @@
       ? `
         <div class="mt-4 pt-4 border-t border-ink-100 flex items-center justify-between gap-3 flex-wrap">
           <div>
-            <div class="text-[10px] font-mono uppercase tracking-[0.14em] text-ink-500">Expected today</div>
+            <div class="text-[10px] font-mono uppercase tracking-[0.14em] text-ink-500">Estimated earnings today</div>
             <div class="font-display text-2xl font-extrabold text-ink-900">$${Number(sum.expected_total_earnings).toFixed(0)}</div>
           </div>
-          ${sum.uplift_pct != null
-            ? `<div class="text-right">
-                  <div class="text-[10px] font-mono uppercase tracking-[0.14em] text-ink-500">vs naive baseline</div>
-                  <div class="font-display text-xl font-extrabold text-grab-700">+${Number(sum.uplift_pct).toFixed(0)}%</div>
-                </div>`
-            : ''}
         </div>`
       : '';
 
     body.innerHTML = `
-      ${p.stub ? `<div class="text-[10px] font-mono uppercase tracking-[0.16em] text-amber-700 bg-amber-50 border border-amber-200 rounded-full px-3 py-1 inline-block mb-4">Preview — optimizer integration coming next</div>` : ''}
-      <div>${blocksHtml}</div>
+      <div class="nice-scroll" style="max-height: 420px; overflow-y: auto; padding-right: 6px;">
+        ${blocksHtml}
+      </div>
       ${summaryRow}
     `;
   }
 
-  // ----- Schedule + Preferences ----------------------------------------
+  // ----- Preferences (editable) ----------------------------------------
   async function loadDriverPlannerPrefs() {
     try {
       const r = await fetch('/api/driver/planner/preferences', { credentials: 'include' });
       if (!r.ok) throw new Error('prefs fetch failed');
       const d = await r.json();
-      renderDriverSchedule(d);
-      renderDriverPrefs(d);
+
+      driverPrefsDraft = {
+        working_hours:   deriveWorkingHours(d.schedule || []),
+        break_hours:     deriveBreakHours(d.blackout_hours || []),
+        preferred_zones: [...(d.preferred_zones || [])],
+        all_zones:       d.all_zones || [],
+        home_zone:       d.home_zone || null,
+      };
+      renderDriverPrefs();
     } catch (err) { console.error('driver/planner/preferences failed', err); }
   }
 
-  function renderDriverSchedule(p) {
-    const body = document.getElementById('driver-schedule-body');
-    // Build a per-day map of [start, end] hours
-    const dayMap = {};
-    (p.schedule || []).forEach(row => {
-      if (!dayMap[row.day_of_week]) dayMap[row.day_of_week] = [];
-      dayMap[row.day_of_week].push(`${String(row.start_hour).padStart(2,'0')}:00 – ${String(row.end_hour).padStart(2,'0')}:00`);
+  function deriveWorkingHours(scheduleRows) {
+    if (!scheduleRows.length) {
+      return { start_hour: 8, end_hour: 18, days: [0,1,2,3,4] };
+    }
+    // Take the most common (start, end) pair across rows.
+    const tally = {};
+    scheduleRows.forEach(r => {
+      const k = `${r.start_hour}-${r.end_hour}`;
+      if (!tally[k]) tally[k] = { start_hour: r.start_hour, end_hour: r.end_hour, days: [] };
+      tally[k].days.push(r.day_of_week);
     });
+    let best = null;
+    Object.values(tally).forEach(v => {
+      if (!best || v.days.length > best.days.length) best = v;
+    });
+    const allDaysWithRows = Array.from(new Set(scheduleRows.map(r => r.day_of_week))).sort();
+    return {
+      start_hour: best.start_hour,
+      end_hour:   best.end_hour,
+      days:       allDaysWithRows,
+    };
+  }
 
-    const rows = DAY_LABELS_FE.map((label, dow) => {
-      const ranges = dayMap[dow];
-      const isActive = !!ranges;
+  // Collapse the stored blackout_hours array into a single (start, end) break
+  // window if the array is contiguous; otherwise treat as no break.
+  function deriveBreakHours(blackoutArr) {
+    if (!blackoutArr || !blackoutArr.length) return { start: null, end: null };
+    const sorted = [...blackoutArr].sort((a, b) => a - b);
+    for (let i = 1; i < sorted.length; i++) {
+      if (sorted[i] !== sorted[i - 1] + 1) return { start: null, end: null };
+    }
+    return { start: sorted[0], end: sorted[sorted.length - 1] + 1 };
+  }
+
+  function renderDriverPrefs() {
+    const body = document.getElementById('driver-prefs-body');
+    const d = driverPrefsDraft;
+    const hourOpts = (selected, includeNone) => {
+      const items = Array.from({length: 25}, (_, h) => h).map(h =>
+        `<option value="${h}" ${h === selected ? 'selected' : ''}>${String(h).padStart(2,'0')}:00</option>`
+      );
+      if (includeNone) items.unshift(`<option value="" ${selected == null ? 'selected' : ''}>None</option>`);
+      return items.join('');
+    };
+
+    const dayChips = DAY_LABELS_FE.map((lbl, dow) => {
+      const on = d.working_hours.days.includes(dow);
       return `
-        <div class="flex items-center justify-between gap-3 py-2 ${dow < 6 ? 'border-b border-ink-50' : ''}">
-          <div class="flex items-center gap-2 min-w-0">
-            <span class="w-2 h-2 rounded-full ${isActive ? 'bg-grab-500' : 'bg-ink-200'}"></span>
-            <span class="text-sm font-semibold text-ink-900 w-12">${label}</span>
-          </div>
-          <div class="text-xs font-mono ${isActive ? 'text-ink-700' : 'text-ink-400'}">${isActive ? ranges.join(' · ') : 'Off'}</div>
-        </div>
-      `;
+        <button type="button"
+                data-day="${dow}"
+                class="day-chip text-[11px] font-semibold px-3 py-1.5 rounded-full border transition
+                       ${on ? 'bg-grab-50 text-grab-700 border-grab-200' : 'bg-ink-50 text-ink-500 border-ink-100 hover:bg-ink-100'}">
+          ${lbl}
+        </button>`;
+    }).join('');
+
+    const zoneChips = (d.all_zones || []).map(z => {
+      const on = d.preferred_zones.includes(z);
+      const isHome = z === d.home_zone;
+      return `
+        <button type="button"
+                data-zone="${escapeHtml(z)}"
+                class="zone-chip text-[11px] font-semibold px-3 py-1.5 rounded-full border transition
+                       ${on ? 'bg-grab-50 text-grab-700 border-grab-200' : 'bg-ink-50 text-ink-500 border-ink-100 hover:bg-ink-100'}">
+          ${escapeHtml(z)}${isHome ? ' · home' : ''}
+        </button>`;
     }).join('');
 
     body.innerHTML = `
-      <div>${rows}</div>
-      <div class="mt-4 pt-3 border-t border-ink-100 text-[11px] text-ink-500">Editing UI coming soon — chat with the agent to update for now.</div>
-    `;
-  }
+      <div class="space-y-6">
 
-  function renderDriverPrefs(p) {
-    const body  = document.getElementById('driver-prefs-body');
-    const zones = (p.preferred_zones || []);
-    const blackout = (p.blackout_hours || []);
-    const target = p.weekly_target_sgd;
-
-    const zonePills = zones.length
-      ? zones.map(z => `<span class="pill bg-grab-50 text-grab-700 border border-grab-100">${escapeHtml(z)}${z === p.home_zone ? ' · home' : ''}</span>`).join(' ')
-      : `<span class="text-xs text-ink-400">No preferred zones set.</span>`;
-
-    const blackoutPills = blackout.length
-      ? blackout.map(h => `<span class="pill bg-rose-50 text-rose-700 border border-rose-100">${String(h).padStart(2,'0')}:00</span>`).join(' ')
-      : `<span class="text-xs text-ink-400">No blackout hours.</span>`;
-
-    body.innerHTML = `
-      <div class="space-y-4">
+        <!-- Working hours -->
         <div>
-          <div class="text-[10px] font-mono uppercase tracking-[0.16em] text-ink-500 mb-2">Preferred zones (soft)</div>
-          <div class="flex flex-wrap gap-1.5">${zonePills}</div>
+          <div class="flex items-center justify-between mb-2">
+            <div class="text-[10px] font-mono uppercase tracking-[0.16em] text-ink-500">Working hours</div>
+            <div class="text-[11px] text-ink-500">Applied to every selected day.</div>
+          </div>
+          <div class="flex flex-wrap items-end gap-3 mb-3">
+            <div>
+              <label class="block text-[10px] text-ink-500 mb-1" for="prefs-start-hour">Start</label>
+              <select id="prefs-start-hour" class="text-sm font-mono bg-ink-50 border border-ink-100 rounded-lg px-3 py-1.5">
+                ${hourOpts(d.working_hours.start_hour, false)}
+              </select>
+            </div>
+            <div class="text-ink-400 mb-2">to</div>
+            <div>
+              <label class="block text-[10px] text-ink-500 mb-1" for="prefs-end-hour">End</label>
+              <select id="prefs-end-hour" class="text-sm font-mono bg-ink-50 border border-ink-100 rounded-lg px-3 py-1.5">
+                ${hourOpts(d.working_hours.end_hour, false)}
+              </select>
+            </div>
+          </div>
+          <div class="text-[10px] font-mono uppercase tracking-[0.16em] text-ink-500 mb-2">Working days</div>
+          <div id="prefs-day-row" class="flex flex-wrap gap-1.5">${dayChips}</div>
         </div>
-        <div>
-          <div class="text-[10px] font-mono uppercase tracking-[0.16em] text-ink-500 mb-2">Blackout hours (hard)</div>
-          <div class="flex flex-wrap gap-1.5">${blackoutPills}</div>
+
+        <!-- Break hours (compact, single inline row) -->
+        <div class="pt-4 border-t border-ink-100 flex items-center justify-between gap-3 flex-wrap">
+          <div>
+            <div class="text-[10px] font-mono uppercase tracking-[0.16em] text-ink-500">Break hours</div>
+            <div class="text-[11px] text-ink-500 mt-0.5">Optional rest window inside your working hours.</div>
+          </div>
+          <div class="flex items-center gap-2">
+            <select id="prefs-break-start" class="text-sm font-mono bg-ink-50 border border-ink-100 rounded-lg px-2.5 py-1.5">
+              ${hourOpts(d.break_hours.start, true)}
+            </select>
+            <span class="text-ink-400 text-sm">to</span>
+            <select id="prefs-break-end" class="text-sm font-mono bg-ink-50 border border-ink-100 rounded-lg px-2.5 py-1.5">
+              ${hourOpts(d.break_hours.end, true)}
+            </select>
+          </div>
         </div>
-        <div class="pt-3 border-t border-ink-100 flex items-center justify-between">
-          <div class="text-[10px] font-mono uppercase tracking-[0.16em] text-ink-500">Weekly target</div>
-          <div class="font-display text-xl font-extrabold text-ink-900">${target != null ? `$${Number(target).toFixed(0)}` : '—'}</div>
+
+        <!-- Preferred zones -->
+        <div class="pt-4 border-t border-ink-100">
+          <div class="text-[10px] font-mono uppercase tracking-[0.16em] text-ink-500 mb-2">Preferred zones</div>
+          <div id="prefs-zone-row" class="flex flex-wrap gap-1.5">
+            ${zoneChips || `<span class="text-xs text-ink-400">City has no zones configured.</span>`}
+          </div>
         </div>
-        <div class="text-[11px] text-ink-500">Editing UI coming soon — chat with the agent to update for now.</div>
       </div>
     `;
+    wireDriverPrefsForm();
+  }
+
+  function wireDriverPrefsForm() {
+    const startEl    = document.getElementById('prefs-start-hour');
+    const endEl      = document.getElementById('prefs-end-hour');
+    const breakStart = document.getElementById('prefs-break-start');
+    const breakEnd   = document.getElementById('prefs-break-end');
+
+    startEl?.addEventListener('change', () => {
+      driverPrefsDraft.working_hours.start_hour = parseInt(startEl.value, 10);
+    });
+    endEl?.addEventListener('change', () => {
+      driverPrefsDraft.working_hours.end_hour = parseInt(endEl.value, 10);
+    });
+    breakStart?.addEventListener('change', () => {
+      const v = breakStart.value;
+      driverPrefsDraft.break_hours.start = (v === '') ? null : parseInt(v, 10);
+    });
+    breakEnd?.addEventListener('change', () => {
+      const v = breakEnd.value;
+      driverPrefsDraft.break_hours.end = (v === '') ? null : parseInt(v, 10);
+    });
+
+    document.querySelectorAll('.day-chip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const dow = parseInt(btn.dataset.day, 10);
+        const days = new Set(driverPrefsDraft.working_hours.days);
+        days.has(dow) ? days.delete(dow) : days.add(dow);
+        driverPrefsDraft.working_hours.days = Array.from(days).sort();
+        renderDriverPrefs();
+      });
+    });
+    document.querySelectorAll('.zone-chip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const z = btn.dataset.zone;
+        const set = new Set(driverPrefsDraft.preferred_zones);
+        set.has(z) ? set.delete(z) : set.add(z);
+        driverPrefsDraft.preferred_zones = Array.from(set);
+        renderDriverPrefs();
+      });
+    });
+  }
+
+  // Expand the break window into the integer hours the backend stores.
+  function buildBlackoutHours(breakObj) {
+    const { start, end } = breakObj || {};
+    if (start == null || end == null) return [];
+    if (end <= start) return [];
+    const out = [];
+    for (let h = start; h < end; h++) out.push(h);
+    return out;
+  }
+
+  async function saveDriverPreferences() {
+    const btn    = document.getElementById('driver-prefs-save');
+    const status = document.getElementById('driver-prefs-status');
+    if (!btn) return;
+
+    btn.disabled = true;
+    status.textContent = 'Saving…';
+
+    const d = driverPrefsDraft;
+    const wh = d.working_hours;
+    if (wh.end_hour <= wh.start_hour) {
+      status.textContent = 'End time must be after start.';
+      status.style.color = '#9F1239';
+      btn.disabled = false;
+      return;
+    }
+    status.style.color = '';
+
+    const scheduleRows = (wh.days || []).map(dow => ({
+      day_of_week: dow,
+      start_hour:  wh.start_hour,
+      end_hour:    wh.end_hour,
+    }));
+
+    try {
+      const [prefsRes, schedRes] = await Promise.all([
+        fetch('/api/driver/planner/preferences', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({
+            preferred_zones: d.preferred_zones,
+            blackout_hours:  buildBlackoutHours(d.break_hours),
+          }),
+        }),
+        fetch('/api/driver/planner/schedule', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ schedule: scheduleRows }),
+        }),
+      ]);
+      if (!prefsRes.ok || !schedRes.ok) throw new Error('save failed');
+
+      status.textContent = 'Saved.';
+      setTimeout(() => { status.textContent = ''; }, 2200);
+
+      await Promise.all([loadDriverPlannerPlan(), loadDriverPlannerPrefs()]);
+    } catch (err) {
+      console.error('save preferences failed', err);
+      status.textContent = 'Save failed. Try again.';
+      status.style.color = '#9F1239';
+    } finally {
+      btn.disabled = false;
+    }
   }
 
   // ----- Event wiring ---------------------------------------------------
-  document.getElementById('driver-toggle-btn')?.addEventListener('click', toggleDriverActive);
+  document.getElementById('driver-prefs-save')?.addEventListener('click', saveDriverPreferences);
   document.getElementById('driver-plan-refresh')?.addEventListener('click', () => loadDriverPlannerPlan());
   document.getElementById('driver-plan-ask')?.addEventListener('click', () => {
     // Build a context-rich prefill from the latest plan, then open the drawer

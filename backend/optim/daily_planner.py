@@ -213,7 +213,7 @@ def _block_rationale(
     else:
         parts.append("low demand")
     if travel_to_next and next_zone and next_zone != zone_name:
-        parts.append(f"hop ~{int(round(travel_mins))} min to {next_zone}")
+        parts.append(f"travel {int(round(travel_mins))} min to {next_zone}")
     return " · ".join(parts)
 
 

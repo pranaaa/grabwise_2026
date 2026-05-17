@@ -27,10 +27,10 @@ router = APIRouter(prefix="/api/chat", tags=["chat"])
 
 # Defense-in-depth: which agents may be the *first* (entry) agent for each role.
 ROLE_ENTRY_ALLOWED = {
-    "driver":   {"driver_success"},
-    "customer": {"customer_convenience"},
-    "merchant": {"merchant_growth"},
-    "admin":    {"driver_success", "customer_convenience", "merchant_growth", "fraud_risk"},
+    "driver":   {"driver_success", "planner"},
+    "customer": {"customer_convenience", "planner"},
+    "merchant": {"merchant_growth", "planner"},
+    "admin":    {"driver_success", "customer_convenience", "merchant_growth", "fraud_risk", "planner"},
 }
 ROLE_DEFAULT_AGENT = {
     "driver":   "driver_success",

@@ -38,3 +38,13 @@ node_modules/
 .next/
 dist/
 build/
+
+# --- LibreOffice / Office lock & temp files ----------------------------------
+.~lock.*#
+*.tmp
+~$*
+
+# --- Locally-generated docs previews (regenerated on demand) -----------------
+docs/preview_pages/
+docs/readme_preview.html
+docs/readme_preview.pdf
